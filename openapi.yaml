@@ -1,0 +1,101 @@
+openapi: 3.1.0
+info:
+  title: Truquence local supplied-record API
+  version: 0.1.0
+  description: Loopback only; no authentication. Does not run Action Contract acceptance.
+servers:
+  - url: http://127.0.0.1:8769
+paths:
+  /check:
+    post:
+      operationId: reconcileSuppliedRecords
+      summary: Compare supplied atomic-event CSV bytes
+      description: Host must match the loopback address; Origin may be absent or exactly the same origin. No transfer encoding; a single Content-Length is required. Maximum body size is 1402197 bytes.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [usage_csv_base64, billed_csv_base64, confirm_atomic_events]
+              properties:
+                usage_csv_base64:
+                  type: string
+                  contentEncoding: base64
+                billed_csv_base64:
+                  type: string
+                  contentEncoding: base64
+                confirm_atomic_events:
+                  type: boolean
+      responses:
+        '200':
+          description: Comparison completed; inspect state. Failed and Unknown are not acceptance.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [policy_version, state, scope, atomic_scope_caller_declared, inputs, counts, findings]
+                properties:
+                  policy_version:
+                    type: string
+                  state:
+                    enum: [Ready, Failed, Unknown]
+                  scope:
+                    type: string
+                  atomic_scope_caller_declared:
+                    type: boolean
+                  inputs:
+                    type: object
+                  counts:
+                    type: object
+                  findings:
+                    type: array
+                    items:
+                      type: object
+        '400':
+          $ref: '#/components/responses/ProtocolError'
+        '403':
+          $ref: '#/components/responses/ProtocolError'
+        '404':
+          $ref: '#/components/responses/ProtocolError'
+        '411':
+          $ref: '#/components/responses/ProtocolError'
+        '413':
+          $ref: '#/components/responses/ProtocolError'
+        '415':
+          $ref: '#/components/responses/ProtocolError'
+  /:
+    get:
+      operationId: localInterface
+      responses:
+        '200':
+          description: Included local HTML interface
+  /sample/{kind}:
+    get:
+      operationId: syntheticSample
+      parameters:
+        - in: path
+          name: kind
+          required: true
+          schema:
+            enum: [clean, dirty, unknown]
+      responses:
+        '200':
+          description: Synthetic payload with extra display-name fields; remove those before POST.
+        '404':
+          $ref: '#/components/responses/ProtocolError'
+components:
+  responses:
+    ProtocolError:
+      description: Request rejected; no completed comparison
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [error, state]
+            properties:
+              error:
+                type: string
+              state:
+                const: Unknown

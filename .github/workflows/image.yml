@@ -1,0 +1,42 @@
+name: Build and publish container image
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f
+      - uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8
+        with:
+          context: .
+          push: false
+          outputs: type=docker,dest=${{ runner.temp }}/image.tar
+          tags: ghcr.io/${{ github.repository_owner }}/truquence:${{ github.ref_name }}
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: container-image
+          path: ${{ runner.temp }}/image.tar
+          retention-days: 1
+  publish:
+    needs: build
+    runs-on: ubuntu-24.04
+    environment: ghcr
+    permissions:
+      packages: write
+    steps:
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: container-image
+          path: ${{ runner.temp }}
+      - uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+      - run: |
+          docker load --input "${{ runner.temp }}/image.tar"
+          docker push "ghcr.io/${{ github.repository_owner }}/truquence:${{ github.ref_name }}"

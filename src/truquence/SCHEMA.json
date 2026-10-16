@@ -1,0 +1,75 @@
+{
+  "policy_version": "usage-events-1.0.0",
+  "csv": {
+    "ordered_header": [
+      "event_id",
+      "customer_id",
+      "period",
+      "unit",
+      "quantity"
+    ],
+    "stable_key": [
+      "customer_id",
+      "period",
+      "event_id"
+    ],
+    "one_atomic_event_per_row": "Required caller declaration; not independently verified",
+    "units": [
+      "request",
+      "token",
+      "second"
+    ],
+    "quantity_pattern": "(?:0|[1-9][0-9]{0,12})(?:\\.[0-9]{1,6})?",
+    "quantity_max": "1000000000000",
+    "period_pattern": "[0-9]{4}-(0[1-9]|1[0-2])",
+    "year_zero_allowed": false
+  },
+  "http_post": {
+    "path": "/check",
+    "required_exact_keys": [
+      "usage_csv_base64",
+      "billed_csv_base64",
+      "confirm_atomic_events"
+    ],
+    "same_origin": "http://127.0.0.1:8769",
+    "origin_policy": "Origin may be absent for local API clients; when present, exactly one same-origin value is required",
+    "request_error": {"http_status": "4xx", "state": "Unknown", "error": "machine-readable code"},
+    "confirm_atomic_events_type": "boolean"
+  },
+  "result": {
+    "state": [
+      "Ready",
+      "Failed",
+      "Unknown"
+    ],
+    "policy_version": "usage-events-1.0.0",
+    "required": [
+      "policy_version",
+      "state",
+      "scope",
+      "atomic_scope_caller_declared",
+      "inputs",
+      "counts",
+      "findings"
+    ],
+    "input_hash": "SHA256 exact provided bytes within supported limit; null for bounded oversized prefix",
+    "finding_severity": [
+      "error",
+      "unknown"
+    ],
+    "finding_fields": [
+      "code",
+      "severity",
+      "next_action",
+      "case-specific details"
+    ]
+  },
+  "not_supported": [
+    "aggregate invoices",
+    "currency or tax comparison",
+    "unit conversions",
+    "source completeness",
+    "API verification",
+    "customer acceptance"
+  ]
+}

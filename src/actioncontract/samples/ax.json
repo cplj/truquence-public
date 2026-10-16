@@ -1,0 +1,26 @@
+[
+  {
+    "id": "refund",
+    "tool": "[\"refund\",\"ledger\",\"acct-synthetic\"]",
+    "payload": "{\"account\":\"acct-synthetic\",\"amount\":50}",
+    "version": "v0",
+    "state": "COMPLETED",
+    "detail": "one matching effect observed"
+  },
+  {
+    "id": "create_customer",
+    "tool": "[\"create_customer\",\"ledger\",\"acct-synthetic\"]",
+    "payload": "{\"customer\":\"cus-synthetic\",\"email\":\"synthetic@example.invalid\"}",
+    "version": "v0",
+    "state": "COMPLETED",
+    "detail": "one matching effect observed"
+  },
+  {
+    "id": "send_receipt",
+    "tool": "[\"send_receipt\",\"append\",\"acct-synthetic\"]",
+    "payload": "{\"customer\":\"cus-synthetic\",\"receipt\":\"rcpt-synthetic\"}",
+    "version": "v0",
+    "state": "COMPLETED",
+    "detail": "one matching effect observed"
+  }
+]

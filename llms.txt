@@ -1,0 +1,17 @@
+# Truquence
+
+> Offline acceptance of supplied synthetic action-contract evidence.
+
+Prerequisites: Git, Python 3.10+ with venv and pip, POSIX shell. Build may fetch setuptools; runtime requires no account, credentials or network.
+Install and runnable sample: follow README.md Quick start verbatim (clone, cd, venv, pip, package sample paths, fresh output directory). Do not use placeholder filenames as sample inputs.
+Discover: truquence --help; truquence accept --help.
+Use when: comparing three supplied native checker results against a synthetic contract.
+Avoid when: executing checkers, verifying live remote state, authenticating evidence or deciding whether to retry a side effect.
+Inputs: src/actioncontract/schema/action_contract.schema.json; docs/contracts.md.
+Results order / JSON check keys: authorization=signwarden, recovery=axiocairn, completion=kinesift.
+Outputs: stdout JSON, PREFIX.json and PREFIX.md. Read status, findings, actions[].checks and inputs (paths and exact-byte hashes).
+Exit codes: accept 0 PASS, 1 FAIL, 2 UNKNOWN, 3 output/signing error. Usage errors also exit 2 with help on stderr. FAIL and UNKNOWN block acceptance.
+Input errors: UNKNOWN report; inspect inputs and findings for path/reason, correct files, rerun with fresh output prefix.
+Output errors: stderr JSON; retain partial files and reconcile before using a fresh prefix. Never blindly retry an external action.
+CSV: truquence USAGE.csv BILLED.csv --confirm-atomic-events --out REPORT.json. Exit 0 means exported, inspect state; exit 2 export_failed JSON on stderr includes error, path, detail, next_action. CSV/API: docs/usage.md; openapi.yaml.
+Limits: docs/contracts.md. Synthetic hand-authored evidence only; unsigned reports establish neither authenticity, source completeness, authorization, actual external state nor business acceptance.

@@ -1,0 +1,4 @@
+event_id,customer_id,period,unit,quantity
+SYN-001,SYN-CUSTOMER,2026-10,request,2
+SYN-002,SYN-CUSTOMER,2026-10,request,3
+SYN-002,SYN-CUSTOMER,2026-10,request,3

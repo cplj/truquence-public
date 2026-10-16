@@ -1,0 +1,112 @@
+{
+  "x-schema": "truquence.action-contract.v0",
+  "x-version": "v0",
+  "x-data_mode": "SYNTHETIC",
+  "x-tasks": [
+    {
+      "x-id": "refund",
+      "x-tool": "refund",
+      "x-kind": "ledger",
+      "x-account": "acct-synthetic",
+      "x-payload": {
+        "account": "acct-synthetic",
+        "amount": 50
+      },
+      "x-version": "v0",
+      "x-actor": "agent-synthetic",
+      "x-on_behalf_of": "principal-synthetic",
+      "x-tenant": "tenant-synthetic",
+      "x-scope": [
+        "refund"
+      ],
+      "x-allowed_actions": [
+        "refund"
+      ],
+      "x-forbidden_state": [
+        "other_accounts",
+        "outbound_messages"
+      ],
+      "x-expect_total_effects": 1,
+      "x-acceptance": "One matching refund of 50; exact final state; no forbidden changes or attempts.",
+      "x-expectation_strategy": {
+        "x-approval": "Single-use approval bound to approver, tool, tenant, exact args and policy version.",
+        "x-retry": "After lost acknowledgement query the matching receipt first; UNKNOWN never grants retry. Ledger deduplication requires an actual adapter guarantee. Append without conclusive receipt requires manual review.",
+        "x-denial_status": "Denied or pending approval must produce zero side effects."
+      },
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    {
+      "x-id": "create_customer",
+      "x-tool": "create_customer",
+      "x-kind": "ledger",
+      "x-account": "acct-synthetic",
+      "x-payload": {
+        "customer": "cus-synthetic",
+        "email": "synthetic@example.invalid"
+      },
+      "x-version": "v0",
+      "x-actor": "agent-synthetic",
+      "x-on_behalf_of": "principal-synthetic",
+      "x-tenant": "tenant-synthetic",
+      "x-scope": [
+        "create_customer"
+      ],
+      "x-allowed_actions": [
+        "create_customer"
+      ],
+      "x-forbidden_state": [
+        "payments",
+        "outbound_messages"
+      ],
+      "x-expect_total_effects": 1,
+      "x-acceptance": "One matching synthetic customer created; exact final state; no forbidden changes or attempts.",
+      "x-expectation_strategy": {
+        "x-approval": "Single-use approval bound to approver, tool, tenant, exact args and policy version.",
+        "x-retry": "After lost acknowledgement query the matching receipt first; UNKNOWN never grants retry. Ledger deduplication requires an actual adapter guarantee. Append without conclusive receipt requires manual review.",
+        "x-denial_status": "Denied or pending approval must produce zero side effects."
+      },
+      "readOnlyHint": false,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false
+    },
+    {
+      "x-id": "send_receipt",
+      "x-tool": "send_receipt",
+      "x-kind": "append",
+      "x-account": "acct-synthetic",
+      "x-payload": {
+        "customer": "cus-synthetic",
+        "receipt": "rcpt-synthetic"
+      },
+      "x-version": "v0",
+      "x-actor": "agent-synthetic",
+      "x-on_behalf_of": "principal-synthetic",
+      "x-tenant": "tenant-synthetic",
+      "x-scope": [
+        "send_receipt"
+      ],
+      "x-allowed_actions": [
+        "send_receipt"
+      ],
+      "x-forbidden_state": [
+        "payments",
+        "other_customers"
+      ],
+      "x-expect_total_effects": 1,
+      "x-acceptance": "One matching simulated receipt message; exact final state; no forbidden changes or attempts.",
+      "x-expectation_strategy": {
+        "x-approval": "Single-use approval bound to approver, tool, tenant, exact args and policy version.",
+        "x-retry": "After lost acknowledgement query the matching receipt first; UNKNOWN never grants retry. Ledger deduplication requires an actual adapter guarantee. Append without conclusive receipt requires manual review.",
+        "x-denial_status": "Denied or pending approval must produce zero side effects."
+      },
+      "readOnlyHint": false,
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": false
+    }
+  ]
+}

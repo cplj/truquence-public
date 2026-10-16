@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Truquence Action Contract v0",
+  "description": "SYNTHETIC local contract. Only four MCP hints and x-prefixed fields derived from existing formats. Payload keys are opaque application data.",
+  "type": "object",
+  "properties": {
+    "x-schema": {
+      "const": "truquence.action-contract.v0"
+    },
+    "x-version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "x-data_mode": {
+      "const": "SYNTHETIC"
+    },
+    "x-tasks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "x-id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "x-tool": {
+            "type": "string",
+            "minLength": 1
+          },
+          "x-account": {
+            "type": "string",
+            "minLength": 1
+          },
+          "x-version": {
+            "type": "string",
+            "minLength": 1
+          },
+          "x-actor": {
+            "type": "string",
+            "minLength": 1
+          },
+          "x-on_behalf_of": {
+            "type": "string",
+            "minLength": 1
+          },
+          "x-tenant": {
+            "type": "string",
+            "minLength": 1
+          },
+          "x-acceptance": {
+            "type": "string",
+            "minLength": 1
+          },
+          "x-kind": {
+            "enum": [
+              "ledger",
+              "append"
+            ]
+          },
+          "x-payload": {
+            "type": "object",
+            "minProperties": 1
+          },
+          "x-scope": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "x-allowed_actions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "x-forbidden_state": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "x-expect_total_effects": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "x-expectation_strategy": {
+            "type": "object",
+            "properties": {
+              "x-approval": {
+                "type": "string",
+                "minLength": 1
+              },
+              "x-retry": {
+                "type": "string",
+                "minLength": 1
+              },
+              "x-denial_status": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "x-approval",
+              "x-retry",
+              "x-denial_status"
+            ],
+            "additionalProperties": false
+          },
+          "readOnlyHint": {
+            "type": "boolean"
+          },
+          "destructiveHint": {
+            "type": "boolean"
+          },
+          "idempotentHint": {
+            "type": "boolean"
+          },
+          "openWorldHint": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "x-id",
+          "x-tool",
+          "x-account",
+          "x-version",
+          "x-actor",
+          "x-on_behalf_of",
+          "x-tenant",
+          "x-acceptance",
+          "x-kind",
+          "x-payload",
+          "x-scope",
+          "x-allowed_actions",
+          "x-forbidden_state",
+          "x-expect_total_effects",
+          "x-expectation_strategy",
+          "readOnlyHint",
+          "destructiveHint",
+          "idempotentHint",
+          "openWorldHint"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "x-schema",
+    "x-version",
+    "x-data_mode",
+    "x-tasks"
+  ],
+  "additionalProperties": false
+}

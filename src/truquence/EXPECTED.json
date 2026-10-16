@@ -1,0 +1,26 @@
+{
+  "dirty": {
+    "state": "Failed",
+    "required_codes": [
+      "DUPLICATE_BILLED_EVENT",
+      "UNBILLED_EVENT"
+    ]
+  },
+  "corrected": {
+    "state": "Ready",
+    "findings": []
+  },
+  "aggregate": {
+    "state": "Unknown",
+    "required_codes": [
+      "INVALID_SCHEMA"
+    ]
+  },
+  "unconfirmed": {
+    "state": "Unknown",
+    "required_codes": [
+      "ATOMIC_SCOPE_UNCONFIRMED"
+    ]
+  },
+  "basis": "Illustrative contract outcomes only; not proof of a real business outcome."
+}

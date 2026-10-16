@@ -1,0 +1,59 @@
+[
+  {
+    "schema": "kinesift.run.v1",
+    "version": "0.1.0",
+    "data_mode": "SYNTHETIC",
+    "status": "SUCCEEDED",
+    "accepted": true,
+    "contract_sha256": null,
+    "task": "refund",
+    "seed": 11,
+    "observation": {},
+    "transitions": [],
+    "final_observation": {},
+    "verification": {
+      "task_state_exact": true,
+      "forbidden_mutations": [],
+      "forbidden_attempts": 0,
+      "accepted": true
+    }
+  },
+  {
+    "schema": "kinesift.run.v1",
+    "version": "0.1.0",
+    "data_mode": "SYNTHETIC",
+    "status": "SUCCEEDED",
+    "accepted": true,
+    "contract_sha256": null,
+    "task": "create_customer",
+    "seed": 11,
+    "observation": {},
+    "transitions": [],
+    "final_observation": {},
+    "verification": {
+      "task_state_exact": true,
+      "forbidden_mutations": [],
+      "forbidden_attempts": 0,
+      "accepted": true
+    }
+  },
+  {
+    "schema": "kinesift.run.v1",
+    "version": "0.1.0",
+    "data_mode": "SYNTHETIC",
+    "status": "SUCCEEDED",
+    "accepted": true,
+    "contract_sha256": null,
+    "task": "send_receipt",
+    "seed": 11,
+    "observation": {},
+    "transitions": [],
+    "final_observation": {},
+    "verification": {
+      "task_state_exact": true,
+      "forbidden_mutations": [],
+      "forbidden_attempts": 0,
+      "accepted": true
+    }
+  }
+]

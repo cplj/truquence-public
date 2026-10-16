@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Truquence — local action acceptance</title><link rel="stylesheet" href="style.css">
+<body><nav><strong>Truquence</strong> · <a href="comparison/">Fair comparison</a> · <a href="https://github.com/cplj/truquence-public">Source</a></nav>
+<main><h1>Inspect the evidence before accepting an action.</h1><p>Truquence compares supplied n8n execution JSON or Make scenario logs against explicit expectations and produces a local PASS, FAIL or UNKNOWN report. It also retains the synthetic three-checker Action Contract merger.</p>
+<p class="note">FAIL and UNKNOWN block acceptance. Reports are unsigned. The tool does not execute actions or establish the authenticity of supplied evidence.</p>
+<h2>Install and call</h2><pre><code>python3 -m pip install .
+truquence init --workflow workflow.json --out contract.json
+# Fill independent expectations, then:
+truquence accept --format n8n --contract contract.json --execution execution.json --out acceptance</code></pre>
+<p>Run from a source checkout with Python 3.10+. Installation may fetch the build tool; runtime has no remote dependency. The repository README links a real local n8n walkthrough with a fresh workflow, no packaged samples and no account.</p>
+<h2>Read the contract</h2><p><a href="https://github.com/cplj/truquence-public/blob/main/docs/workflows.md">Workflow formats</a> · <a href="https://github.com/cplj/truquence-public/blob/main/docs/local-n8n.md">Local n8n walkthrough</a></p><p><a href="https://github.com/cplj/truquence-public/blob/main/src/actioncontract/schema/action_contract.schema.json">Input schema</a> · <a href="https://github.com/cplj/truquence-public/blob/main/docs/contracts.md">Evidence and output reference</a> · <a href="https://github.com/cplj/truquence-public/blob/main/llms.txt">Agent reference</a> · <a href="https://github.com/cplj/truquence-public/blob/main/openapi.yaml">Loopback CSV API</a></p>
+<h2>Measured limits</h2><p><a href="comparison/">Read the historical synthetic comparison.</a> Under its conditions, an interface around the same core added latency and did not establish an algorithmic or human-effort advantage. It does not benchmark the current Action Contract implementation.</p></main><footer>Truquence Authors · Apache-2.0 · <a href="mailto:hello@truquence.com">hello@truquence.com</a></footer></body></html>

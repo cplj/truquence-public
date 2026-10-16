@@ -1,0 +1,204 @@
+{
+  "schema": "signwarden.report.v0",
+  "signwarden_version": "0.1.0",
+  "suite": "SYNTHETIC_NOT_EXECUTED",
+  "case_file": "SYNTHETIC_NOT_EXECUTED",
+  "case_file_sha256": null,
+  "adapter": "SYNTHETIC_NOT_EXECUTED",
+  "adapter_sha256": null,
+  "harness_sha256": null,
+  "summary": {
+    "PASS": 3,
+    "FAIL": 0,
+    "UNKNOWN": 0
+  },
+  "scope_note": "Hand-authored synthetic format fixture, not checker execution, deployment or customer evidence.",
+  "cases": [
+    {
+      "id": "refund",
+      "title": "Synthetic refund",
+      "behavior": "approval",
+      "result": "PASS",
+      "checks": [
+        {
+          "step": 0,
+          "op": "call",
+          "expected": {
+            "status": [
+              "executed"
+            ],
+            "effects": [
+              {
+                "tool": "refund",
+                "tenant": "tenant-synthetic",
+                "args": {
+                  "account": "acct-synthetic",
+                  "amount": 50
+                }
+              }
+            ]
+          },
+          "observed": {
+            "status": "executed",
+            "effects": [
+              {
+                "tool": "refund",
+                "tenant": "tenant-synthetic",
+                "args": {
+                  "account": "acct-synthetic",
+                  "amount": 50
+                }
+              }
+            ]
+          },
+          "result": "PASS",
+          "reason": ""
+        },
+        {
+          "step": "end",
+          "op": "total_effects",
+          "expected": 1,
+          "observed": 1,
+          "result": "PASS",
+          "reason": ""
+        }
+      ],
+      "not_executed_steps": [],
+      "stopped_reason": null,
+      "ledger": [
+        {
+          "tool": "refund",
+          "tenant": "tenant-synthetic",
+          "args": {
+            "account": "acct-synthetic",
+            "amount": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "create_customer",
+      "title": "Synthetic create_customer",
+      "behavior": "approval",
+      "result": "PASS",
+      "checks": [
+        {
+          "step": 0,
+          "op": "call",
+          "expected": {
+            "status": [
+              "executed"
+            ],
+            "effects": [
+              {
+                "tool": "create_customer",
+                "tenant": "tenant-synthetic",
+                "args": {
+                  "customer": "cus-synthetic",
+                  "email": "synthetic@example.invalid"
+                }
+              }
+            ]
+          },
+          "observed": {
+            "status": "executed",
+            "effects": [
+              {
+                "tool": "create_customer",
+                "tenant": "tenant-synthetic",
+                "args": {
+                  "customer": "cus-synthetic",
+                  "email": "synthetic@example.invalid"
+                }
+              }
+            ]
+          },
+          "result": "PASS",
+          "reason": ""
+        },
+        {
+          "step": "end",
+          "op": "total_effects",
+          "expected": 1,
+          "observed": 1,
+          "result": "PASS",
+          "reason": ""
+        }
+      ],
+      "not_executed_steps": [],
+      "stopped_reason": null,
+      "ledger": [
+        {
+          "tool": "create_customer",
+          "tenant": "tenant-synthetic",
+          "args": {
+            "customer": "cus-synthetic",
+            "email": "synthetic@example.invalid"
+          }
+        }
+      ]
+    },
+    {
+      "id": "send_receipt",
+      "title": "Synthetic send_receipt",
+      "behavior": "approval",
+      "result": "PASS",
+      "checks": [
+        {
+          "step": 0,
+          "op": "call",
+          "expected": {
+            "status": [
+              "executed"
+            ],
+            "effects": [
+              {
+                "tool": "send_receipt",
+                "tenant": "tenant-synthetic",
+                "args": {
+                  "customer": "cus-synthetic",
+                  "receipt": "rcpt-synthetic"
+                }
+              }
+            ]
+          },
+          "observed": {
+            "status": "executed",
+            "effects": [
+              {
+                "tool": "send_receipt",
+                "tenant": "tenant-synthetic",
+                "args": {
+                  "customer": "cus-synthetic",
+                  "receipt": "rcpt-synthetic"
+                }
+              }
+            ]
+          },
+          "result": "PASS",
+          "reason": ""
+        },
+        {
+          "step": "end",
+          "op": "total_effects",
+          "expected": 1,
+          "observed": 1,
+          "result": "PASS",
+          "reason": ""
+        }
+      ],
+      "not_executed_steps": [],
+      "stopped_reason": null,
+      "ledger": [
+        {
+          "tool": "send_receipt",
+          "tenant": "tenant-synthetic",
+          "args": {
+            "customer": "cus-synthetic",
+            "receipt": "rcpt-synthetic"
+          }
+        }
+      ]
+    }
+  ]
+}
