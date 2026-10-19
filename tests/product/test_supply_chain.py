@@ -17,7 +17,7 @@ class SupplyChainTests(unittest.TestCase):
             self.assertNotIn("ubuntu-latest", workflow.read_text())
         for workflow in workflows:
             for action in re.findall(r"uses:\s*([^\s#]+)", workflow.read_text()):
-                self.assertRegex(action, r"^[\w.-]+/[\w.-]+@[0-9a-f]{40}$", str(workflow))
+                self.assertRegex(action, r"^[\w.-]+/[\w./-]+@[0-9a-f]{40}$", str(workflow))
 
     def test_only_publish_jobs_receive_write_permissions(self):
         for name, scope in (("image.yml", "packages"), ("release.yml", "id-token")):
