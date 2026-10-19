@@ -26,9 +26,20 @@ class SupplyChainTests(unittest.TestCase):
             self.assertNotIn(f"{scope}: write", build)
             self.assertIn("needs: build", publish)
             self.assertIn(f"{scope}: write", publish)
+            header, jobs = source.split("jobs:\n", 1)
+            self.assertNotRegex(header, r"(?m)^\s*[\w-]+: write$")
+            for job, body in re.findall(r"(?ms)^  ([\w-]+):\n(.*?)(?=^  [\w-]+:\n|\Z)", jobs):
+                if re.search(r"(?m)^      [\w-]+: write$", body):
+                    self.assertIn(job, ("publish", "provenance"), f"{name}: {job}")
         image = (CI / "image.yml").read_text()
         self.assertIn("push: false", image.split("  publish:\n", 1)[0])
         self.assertNotIn("docker/login-action", image.split("  publish:\n", 1)[0])
+
+    def test_container_attestation_disables_organization_only_storage_record(self):
+        image = (CI / "image.yml").read_text()
+        attest = image.split("      - uses: actions/attest@", 1)[1]
+        self.assertRegex(attest, r"(?m)^          create-storage-record: false$")
+        self.assertIn("push-to-registry: true", attest)
 
     def test_container_pins_base_and_drops_root_and_packaging_tools(self):
         dockerfile = (ROOT / "Dockerfile").read_text()
