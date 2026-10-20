@@ -32,6 +32,29 @@ editor positions, notes and colors are ignored. Changed runtime configuration
 requires a newly reviewed contract. Do not generate expected output from the
 execution being accepted.
 
+### Example: the run says success, the output is wrong
+
+An n8n run can finish green while a node passes the wrong data along. With the
+package installed (README Quick start), check one full exported execution offline:
+
+```sh
+truquence init --workflow workflow.json --out contract.json
+# edit contract.json: replace each "x-expect_items": null with the items that node should output
+truquence accept --format n8n --contract contract.json --execution execution.json --out run
+```
+
+Actual synthetic run: the execution reports `"status": "success"`, but node
+`Total` outputs `"total": 12.0` where the contract expects `120.0`. Exit 1, JSON excerpt:
+
+```json
+{"status":"FAIL","counts":{"PASS":2,"FAIL":1,"UNKNOWN":0}}
+{"id":"Total","status":"FAIL","reason":"Exact JSON output items differ from expected (including item count and order)."}
+```
+
+The same contract against an execution with the right total returns PASS (exit 0).
+A `null` expectation stays UNKNOWN.
+For Make, only the log's ID, reported status and operation count are checked, not outputs (see below).
+
 Supported execution: one full JSON object containing `finished`, optional
 `status`, `workflowData`, and `data.resultData.runData`. Each checked node maps
 to an array of runs, each containing `data.main: [[{"json": {}}]]`. `finished`
