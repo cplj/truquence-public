@@ -35,4 +35,4 @@ Exit 0 PASS, 1 FAIL, 2 UNKNOWN, 3 output/signing error; argparse usage errors al
 
 [Inputs and outputs](docs/contracts.md) · [Agent reference](llms.txt) · [CSV/API](docs/usage.md)
 
-[Workflow acceptance](docs/workflows.md#n8n): n8n run says success, output is wrong?
+[Workflows](docs/workflows.md#n8n) · [Recorder](recorder/README.md) · [Modules](MODULES.md)
