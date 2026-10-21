@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use Truquence, please cite this software."
+type: software
+title: Truquence
+authors:
+  - name: Truquence Team
+version: 0.2.0
+license: Apache-2.0
+repository-code: "https://github.com/cplj/truquence-public"
+url: "https://cplj.github.io/truquence-public/"
+abstract: "Offline checks of exported workflow runs and supplied action-contract evidence against explicit expectations."

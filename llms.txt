@@ -3,7 +3,7 @@
 > Offline acceptance of supplied synthetic action-contract evidence.
 
 Prerequisites: Git, Python 3.10+ with venv and pip, POSIX shell. Build may fetch setuptools; runtime requires no account, credentials or network.
-Install and runnable sample: follow README.md Quick start verbatim (clone, cd, venv, pip, package sample paths, fresh output directory). Do not use placeholder filenames as sample inputs.
+Install: pip install truquence. Runnable synthetic sample: follow docs/quickstart.md verbatim (clone, cd, venv, pip, package sample paths, fresh output directory). Do not use placeholder filenames as sample inputs.
 Discover: truquence --help; truquence accept --help.
 Use when: comparing three supplied native checker results against a synthetic contract.
 Avoid when: executing checkers, verifying live remote state, authenticating evidence or deciding whether to retry a side effect.
@@ -15,3 +15,11 @@ Input errors: UNKNOWN report; inspect inputs and findings for path/reason, corre
 Output errors: stderr JSON; retain partial files and reconcile before using a fresh prefix. Never blindly retry an external action.
 CSV: truquence USAGE.csv BILLED.csv --confirm-atomic-events --out REPORT.json. Exit 0 means exported, inspect state; exit 2 export_failed JSON on stderr includes error, path, detail, next_action. CSV/API: docs/usage.md; openapi.yaml.
 Limits: docs/contracts.md. Synthetic hand-authored evidence only; unsigned reports establish neither authenticity, source completeness, authorization, actual external state nor business acceptance.
+
+Workflow examples: docs/workflows.md#n8n; docs/workflows.md#make-scenario-log-adapter.
+Workflow use: compare exported n8n executions or Make scenario logs with independently defined expectations, offline. Do not derive expectations from the execution being accepted.
+Make scope: identity, status and operation count only; not outputs or side effects.
+Recorder entry: recorder/README.md. It records supplied tool-call envelopes; chain integrity does not prove completeness or external effects.
+Translations: README.zh-CN.md, README.zh-TW.md, README.ja.md, README.ko.md, README.es.md, README.pt-BR.md, README.de.md, README.fr.md. Commands and limitation text match README.md.
+Project home: https://cplj.github.io/truquence-public/
+Package: https://pypi.org/project/truquence/

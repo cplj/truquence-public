@@ -1,38 +1,38 @@
+[English](README.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Español](README.es.md) · [Português](README.pt-BR.md) · [Deutsch](README.de.md) · [Français](README.fr.md)
+
 # Truquence
 
-Check whether supplied authorization, recovery and completion evidence agrees with a synthetic action contract before accepting an action.
+Your n8n run shows green. Was the output right?
 
-## Quick start
-
-Requires Git, Python 3.10+ with venv/pip and a POSIX shell. Setup may fetch setuptools; samples run offline without an account.
+*Draft wording; awaiting confirmation.*
 
 ```sh
-git clone https://github.com/cplj/truquence-public.git
-cd truquence-public
-python3 -m venv .venv && . .venv/bin/activate && python3 -m pip install .
-TQ_EXAMPLES="$(python3 -c 'import actioncontract; from pathlib import Path; print(Path(actioncontract.__file__).parent)')"
-TQ_OUT="$(mktemp -d)"
-truquence accept --contract "$TQ_EXAMPLES/contracts/synthetic.json" --results "$TQ_EXAMPLES/samples/sw.json" "$TQ_EXAMPLES/samples/ax.json" "$TQ_EXAMPLES/samples/ks.json" --out "$TQ_OUT/acceptance"
+pip install truquence
 ```
 
-Actual sample output (JSON excerpt):
-```json
-{"status":"PASS","counts":{"PASS":3,"FAIL":0,"UNKNOWN":0}}
-```
-Writes stdout JSON, `$TQ_OUT/acceptance.json` and `.md`. Hand-authored synthetic results do not prove external execution.
+Check exported workflow runs against explicit expectations, offline.
+
+## Examples
+
+- [n8n: Workflow output](docs/workflows.md#n8n)
+- [Make: Scenario logs](docs/workflows.md#make-scenario-log-adapter)
+- [Action Contract: Synthetic evidence](docs/quickstart.md)
 
 ## For AI agents
 
-Run the commands above; replace all four input paths for your own evidence. `--results` order and JSON check keys: authorization=`signwarden`, recovery=`axiocairn`, completion=`kinesift`.
-Exit 0 PASS, 1 FAIL, 2 UNKNOWN, 3 output/signing error; argparse usage errors also exit 2. FAIL and UNKNOWN block acceptance. Inspect `status`, `findings` and each action's `checks`; never infer retry permission.
+Install, then follow a walkthrough. Commands and limits below are identical across editions.
 
-## Common errors
+`truquence --help` · `truquence accept --help`
 
-- `externally-managed-environment` or command missing: activate `.venv` and repeat installation there.
-- Missing venv/pip or old Python: provide Python 3.10+ with venv/pip.
-- Missing/invalid input: correct paths in `inputs`/`findings`, then rerun.
-- Output exists: retain partial files, reconcile them, then choose a fresh prefix.
+[Input/output schemas](docs/contracts.md) · [Workflow reference](docs/workflows.md) · [Agent reference](llms.txt) · [Recorder](recorder/README.md)
 
-[Inputs and outputs](docs/contracts.md) · [Agent reference](llms.txt) · [CSV/API](docs/usage.md)
+<!-- limits:start -->
+Python 3.10+. FAIL and UNKNOWN block acceptance. Define expectations independently.
+Supplied exports only; no workflow execution or live-state verification.
+Make checks identity, status and operation count, not outputs or side effects.
+Synthetic evidence does not prove external execution. Unsigned reports establish
+neither authenticity, completeness, authorization nor business acceptance.
+No report grants retry permission. Retain partial files; use a fresh output prefix.
+<!-- limits:end -->
 
-[Workflows](docs/workflows.md#n8n) · [Recorder](recorder/README.md) · [Modules](MODULES.md)
+Machine-assisted translations; corrections welcome. [Report a translation issue](https://github.com/cplj/truquence-public/issues/new?template=translation.yml).

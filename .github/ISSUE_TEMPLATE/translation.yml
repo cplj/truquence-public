@@ -1,0 +1,17 @@
+name: Translation correction
+description: Report a wording or technical mismatch in a translated README.
+title: "[Translation] "
+body:
+  - type: input
+    id: language
+    attributes:
+      label: Language and README filename
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: Original text and suggested correction
+      description: Include the corresponding English text. Keep commands, numbers, URLs and limitations unchanged. Do not include private data or credentials.
+    validations:
+      required: true

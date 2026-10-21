@@ -35,7 +35,7 @@ execution being accepted.
 ### Example: the run says success, the output is wrong
 
 An n8n run can finish green while a node passes the wrong data along. With the
-package installed (README Quick start), check one full exported execution offline:
+package installed ([Quick start](quickstart.md)), check one full exported execution offline:
 
 ```sh
 truquence init --workflow workflow.json --out contract.json
