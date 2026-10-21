@@ -140,8 +140,8 @@ class CLITests(unittest.TestCase):
                               capture_output=True, text=True, timeout=10)
 
     def test_installed_help_and_version(self):
-        self.assertEqual(__version__, '0.2.0')
-        self.assertIn('0.2.0', self.run_cli('--version').stdout)
+        self.assertEqual(__version__, '0.3.0')
+        self.assertIn('0.3.0', self.run_cli('--version').stdout)
         help_result = self.run_cli('--help')
         self.assertEqual(help_result.returncode, 0)
         self.assertIn('--confirm-atomic-events', help_result.stdout)

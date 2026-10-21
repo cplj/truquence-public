@@ -2,37 +2,42 @@
 
 # Truquence
 
-Your n8n run shows green. Was the output right?
+Check supplied workflow runs against explicit expectations, capture local hook events, and verify a receipt ledger offline.
 
-*Draft wording; awaiting confirmation.*
+## Install
+
+Python 3.10+. Recorder commands require POSIX; native hook setup also needs `/usr/bin/cc`.
 
 ```sh
-pip install truquence
+python -m pip install truquence
+truquence --help
+truquence-recorder --help
 ```
 
-Check exported workflow runs against explicit expectations, offline.
+Core and Recorder use the standard library. Add MCP:
 
-## Examples
+```sh
+python -m pip install 'truquence[mcp]'
+truquence-mcp --help
+```
 
-- [n8n: Workflow output](docs/workflows.md#n8n)
-- [Make: Scenario logs](docs/workflows.md#make-scenario-log-adapter)
-- [Action Contract: Synthetic evidence](docs/quickstart.md)
+For the unreleased 0.3.0 candidate, install its local wheel. PyPI 0.2.0 has no MCP or Recorder entry point.
+
+## Record a synthetic event
+
+```sh
+printf '%s\n' '{"hook_event_name":"PreToolUse","session_id":"example-session","cwd":"/example","tool_name":"Bash","tool_use_id":"example-call","tool_input":{"command":"echo hello"}}' | truquence-recorder hook
+truquence-recorder verify
+```
+
+The hook prints `{}`. Verification reports `integrity: SELF_CONSISTENT`; `authenticity` and `completeness` remain `UNKNOWN`. This writes to your local ledger. [Recorder setup and limits](recorder/README.md).
 
 ## For AI agents
 
-Install, then follow a walkthrough. Commands and limits below are identical across editions.
+Start `truquence-mcp` over stdio. Call `truquence_accept` with `contract_json`, `execution_json` and `source` (`n8n` or `make`). Each JSON text is limited to 1 MiB. [Runnable MCP example and schemas](docs/integrations.md).
 
-`truquence --help` · `truquence accept --help`
+Read `status` and `gateBlocked`. FAIL and UNKNOWN block acceptance; PASS concerns supplied records only. No command authorizes a retry or proves an external action happened.
 
-[Input/output schemas](docs/contracts.md) · [Workflow reference](docs/workflows.md) · [Agent reference](llms.txt) · [Recorder](recorder/README.md)
+Evidence levels: passive capture describes hook collection, hook assertions are `self_reported`, and supplied workflow exports are `imported`. Neither is independent observation.
 
-<!-- limits:start -->
-Python 3.10+. FAIL and UNKNOWN block acceptance. Define expectations independently.
-Supplied exports only; no workflow execution or live-state verification.
-Make checks identity, status and operation count, not outputs or side effects.
-Synthetic evidence does not prove external execution. Unsigned reports establish
-neither authenticity, completeness, authorization nor business acceptance.
-No report grants retry permission. Retain partial files; use a fresh output prefix.
-<!-- limits:end -->
-
-Machine-assisted translations; corrections welcome. [Report a translation issue](https://github.com/cplj/truquence-public/issues/new?template=translation.yml).
+[Acceptance](docs/quickstart.md) · [Schemas](docs/contracts.md)

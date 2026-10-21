@@ -7,6 +7,7 @@ Each line in `actions.jsonl` is one canonical JSON object followed by a newline.
 | Field | Meaning |
 | --- | --- |
 | `schema` | `signwarden.recorder.v1` |
+| `evidence_level` | `self_reported` for new hook records; legacy rows may omit it |
 | `time_ns` | Recorder wall-clock time in nanoseconds; not a trusted timestamp |
 | `session`, `cwd` | Redacted hook metadata |
 | `event`, `tool` | Supported hook event and optional tool name |

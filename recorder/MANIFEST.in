@@ -1,4 +1,0 @@
-# Public capture-only cut, 2026-10-20; no rule matching.
-include README.md LICENSE NOTICE
-include docs/SCHEMA.md
-include tests/test_recorder.py

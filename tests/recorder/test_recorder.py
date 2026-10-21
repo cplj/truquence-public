@@ -15,7 +15,10 @@ import subprocess
 import sys
 import tempfile
 import time
-import tomllib
+try:
+    import tomllib
+except ImportError:
+    import tomli as tomllib
 import unittest
 from unittest.mock import patch
 
@@ -23,7 +26,7 @@ from signwarden_recorder.core import MAX_INPUT, canonical, digest, hook_input, p
 from signwarden_recorder.hook import handle
 from signwarden_recorder import install, native, storage, worker
 
-PACKAGE = Path(__file__).resolve().parents[1]
+PACKAGE = Path(__file__).resolve().parents[2]
 FIXTURES = Path(tempfile.mkdtemp(prefix='swr-public-test-',
     dir='/private/tmp' if sys.platform == 'darwin' else None)).resolve()
 
@@ -64,6 +67,7 @@ class RecorderTests(unittest.TestCase):
         rows = storage.read_records()
         self.assertEqual([r['status'] for r in rows], ['requested', 'succeeded'])
         self.assertEqual([r['risks'] for r in rows], [[], []])
+        self.assertEqual([r['evidence_level'] for r in rows], ['self_reported', 'self_reported'])
         self.assertGreaterEqual(rows[1]['elapsed_ms'], 0)
         self.assertNotIn('not collected', (storage.root() / 'actions.jsonl').read_text())
         self.assertEqual((storage.root() / 'actions.jsonl').stat().st_mode & 0o777, 0o600)
@@ -253,12 +257,12 @@ class RecorderTests(unittest.TestCase):
 
     def test_manifest_and_import_closure(self):
         spec = tomllib.loads((PACKAGE / 'pyproject.toml').read_text())
-        self.assertEqual(spec['project']['name'], 'signwarden-recorder')
+        self.assertEqual(spec['project']['name'], 'truquence')
         self.assertEqual(spec['project']['dependencies'], [])
-        self.assertEqual(spec['tool']['setuptools']['package-data'], {'signwarden_recorder': ['client.c']})
-        self.assertEqual(set(spec['project']['scripts']), {'swr', 'signwarden-recorder'})
+        self.assertEqual(spec['tool']['setuptools']['package-data']['signwarden_recorder'], ['client.c'])
+        self.assertTrue({'truquence', 'truquence-mcp', 'truquence-recorder', 'swr', 'signwarden-recorder'} <= set(spec['project']['scripts']))
         allowed = {'__init__', '__main__', 'cli', 'client', 'core', 'hook', 'install', 'native', 'runner', 'storage', 'worker'}
-        files = list((PACKAGE / 'signwarden_recorder').iterdir())
+        files = [p for p in (PACKAGE / 'src/signwarden_recorder').iterdir() if p.is_file()]
         self.assertEqual({p.stem for p in files}, allowed)
         for path in files:
             if path.suffix != '.py': continue

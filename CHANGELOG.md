@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.0 (candidate)
+
+- Include the public capture-only Recorder in the installed distribution, with truquence-recorder and legacy aliases.
+- Add an optional MCP SDK extra and truquence-mcp workflow-verification entry point.
+- Merge package keywords, project links and the workflow description from 0.2.1 metadata.
+- Mark hook assertions as self_reported; keep authenticity and completeness UNKNOWN.
+
 ## 0.2.0
 
 - Accept full n8n execution JSON and exported Make scenario logs with explicit local expectations.

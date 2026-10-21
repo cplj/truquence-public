@@ -2,7 +2,7 @@
 
 > Offline acceptance of supplied synthetic action-contract evidence.
 
-Prerequisites: Git, Python 3.10+ with venv and pip, POSIX shell. Build may fetch setuptools; runtime requires no account, credentials or network.
+Prerequisites: Git, Python 3.10+ with venv and pip, POSIX shell. Build may fetch setuptools; core runtime requires no account, credentials or network. MCP uses its optional SDK.
 Install: pip install truquence. Runnable synthetic sample: follow docs/quickstart.md verbatim (clone, cd, venv, pip, package sample paths, fresh output directory). Do not use placeholder filenames as sample inputs.
 Discover: truquence --help; truquence accept --help.
 Use when: comparing three supplied native checker results against a synthetic contract.
@@ -20,6 +20,9 @@ Workflow examples: docs/workflows.md#n8n; docs/workflows.md#make-scenario-log-ad
 Workflow use: compare exported n8n executions or Make scenario logs with independently defined expectations, offline. Do not derive expectations from the execution being accepted.
 Make scope: identity, status and operation count only; not outputs or side effects.
 Recorder entry: recorder/README.md. It records supplied tool-call envelopes; chain integrity does not prove completeness or external effects.
-Translations: README.zh-CN.md, README.zh-TW.md, README.ja.md, README.ko.md, README.es.md, README.pt-BR.md, README.de.md, README.fr.md. Commands and limitation text match README.md.
+Translations: README.zh-CN.md, README.zh-TW.md, README.ja.md, README.ko.md, README.es.md, README.pt-BR.md, README.de.md, README.fr.md. These editions cover acceptance; the new integration guide is in English.
 Project home: https://cplj.github.io/truquence-public/
 Package: https://pypi.org/project/truquence/
+
+MCP: pip install "truquence[mcp]"; start truquence-mcp over stdio. Only tool: truquence_accept(contract_json, execution_json, source). Inputs are JSON text <=1 MiB each. See docs/integrations.md.
+Recorder: installed truquence-recorder hook reads JSON stdin; verify checks the local ledger. POSIX required. Hook assertions are self_reported; supplied workflow exports are imported. Integrity does not prove authenticity or completeness.

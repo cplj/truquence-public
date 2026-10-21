@@ -46,7 +46,16 @@ def parse(raw):
         raise ValueError('non-finite JSON number')
     try:
         value = json.loads(raw, object_pairs_hook=pairs, parse_constant=invalid)
-        # Also rejects exponent overflow and excessive nesting before storage.
+        # Bound nesting explicitly; interpreter recursion limits vary by version.
+        pending = [(value, 0)]
+        while pending:
+            item, depth = pending.pop()
+            if depth > 64:
+                raise ValueError('JSON nesting exceeds 64 levels')
+            if isinstance(item, dict):
+                pending.extend((child, depth + 1) for child in item.values())
+            elif isinstance(item, list):
+                pending.extend((child, depth + 1) for child in item)
         canonical(value)
         return value
     except (UnicodeError, RecursionError, OverflowError) as exc:

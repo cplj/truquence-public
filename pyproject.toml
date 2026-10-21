@@ -4,16 +4,30 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "truquence"
-version = "0.2.0"
-description = "Offline workflow execution acceptance and supplied-record reconciliation"
+version = "0.3.0"
+description = "Check exported workflow runs and supplied action-contract evidence against explicit expectations, offline"
+keywords = ["ai-agents", "workflow-automation", "audit-log", "receipt-verification", "n8n"]
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "Apache-2.0"}
 authors = [{name = "Truquence Team", email = "hello@truquence.com"}]
 dependencies = []
 
+[project.urls]
+Homepage = "https://cplj.github.io/truquence-public/"
+Repository = "https://github.com/cplj/truquence-public"
+Documentation = "https://cplj.github.io/truquence-public/"
+Issues = "https://github.com/cplj/truquence-public/issues"
+
+[project.optional-dependencies]
+mcp = ["mcp>=1.30,<2"]
+
 [project.scripts]
 truquence = "truquence.entry:main"
+truquence-mcp = "truquence.mcp_server:main"
+truquence-recorder = "signwarden_recorder.cli:main"
+swr = "signwarden_recorder.cli:main"
+signwarden-recorder = "signwarden_recorder.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -21,3 +35,5 @@ where = ["src"]
 [tool.setuptools.package-data]
 truquence = ["web/*.html", "web/*.js", "web/*.css", "samples/*.csv", "SCHEMA.json", "EXPECTED.json"]
 actioncontract = ["schema/*.json", "contracts/*.json", "samples/*.json"]
+
+signwarden_recorder = ["client.c"]

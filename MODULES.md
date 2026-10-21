@@ -5,7 +5,8 @@ Truquence checks supplied records against explicit expectations. Each component 
 | Component | Current entry point | Scope |
 |---|---|---|
 | Acceptance | Existing `truquence` command | Compare supplied execution records with a contract. |
-| Recorder | [Capture and chain verification](recorder/README.md) | Record local hook events, redact selected fields, and check the stored hash chain. |
+| MCP | Installed `truquence-mcp` with `truquence[mcp]` | Verify supplied workflow JSON over stdio. |
+| Recorder | [Capture and chain verification](recorder/README.md) | Installed `truquence-recorder` captures local hook events and verifies the stored hash chain. |
 | Authorization | [SignWarden](https://github.com/cplj/signwarden-public) | Existing tool-policy and authorization interfaces. |
 | Reconciliation | [Axiocairn](https://github.com/cplj/axiocairn-public) | Existing receipt lookup and reconciliation interfaces. |
 | Observation | [Kinesift](https://github.com/cplj/kinesift-public) | Bounded execution observations and coverage reports. |
