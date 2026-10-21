@@ -20,7 +20,7 @@
 #define LIMIT (1024 * 1024)
 
 static int fail(void) {
-    const char message[] = "SignWarden Recorder could not record this event (transport).\n";
+    const char message[] = "Truquence Recorder could not record this event (transport).\n";
     write(2, message, sizeof(message) - 1);
     return 1;
 }
