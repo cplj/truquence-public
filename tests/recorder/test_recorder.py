@@ -22,9 +22,9 @@ except ImportError:
 import unittest
 from unittest.mock import patch
 
-from signwarden_recorder.core import MAX_INPUT, canonical, digest, hook_input, parse, redact, summarize
-from signwarden_recorder.hook import handle
-from signwarden_recorder import install, native, storage, worker
+from truquence_recorder.core import MAX_INPUT, canonical, digest, hook_input, parse, redact, summarize
+from truquence_recorder.hook import handle
+from truquence_recorder import install, native, storage, worker
 
 PACKAGE = Path(__file__).resolve().parents[2]
 FIXTURES = Path(tempfile.mkdtemp(prefix='swr-public-test-',
@@ -56,7 +56,7 @@ class RecorderTests(unittest.TestCase):
         self.addCleanup(self.env.stop)
 
     def invoke(self, *args, raw=b''):
-        return subprocess.run([sys.executable, '-B', '-m', 'signwarden_recorder', *args],
+        return subprocess.run([sys.executable, '-B', '-m', 'truquence_recorder', *args],
             input=raw, capture_output=True, cwd=PACKAGE, timeout=10)
 
     def test_capture_and_pair(self):
@@ -259,10 +259,10 @@ class RecorderTests(unittest.TestCase):
         spec = tomllib.loads((PACKAGE / 'pyproject.toml').read_text())
         self.assertEqual(spec['project']['name'], 'truquence')
         self.assertEqual(spec['project']['dependencies'], [])
-        self.assertEqual(spec['tool']['setuptools']['package-data']['signwarden_recorder'], ['client.c'])
-        self.assertTrue({'truquence', 'truquence-mcp', 'truquence-recorder', 'swr', 'signwarden-recorder'} <= set(spec['project']['scripts']))
+        self.assertEqual(spec['tool']['setuptools']['package-data']['truquence_recorder'], ['client.c'])
+        self.assertEqual({'truquence', 'truquence-mcp', 'truquence-recorder'}, set(spec['project']['scripts']))
         allowed = {'__init__', '__main__', 'cli', 'client', 'core', 'hook', 'install', 'native', 'runner', 'storage', 'worker'}
-        files = [p for p in (PACKAGE / 'src/signwarden_recorder').iterdir() if p.is_file()]
+        files = [p for p in (PACKAGE / 'src/truquence_recorder').iterdir() if p.is_file()]
         self.assertEqual({p.stem for p in files}, allowed)
         for path in files:
             if path.suffix != '.py': continue
@@ -273,7 +273,7 @@ class RecorderTests(unittest.TestCase):
                         if node.module: self.assertIn(node.module.split('.')[0], allowed)
                         else:
                             for alias in node.names: self.assertIn(alias.name, allowed)
-                    elif node.module.split('.')[0] != 'signwarden_recorder':
+                    elif node.module.split('.')[0] != 'truquence_recorder':
                         self.assertIn(node.module.split('.')[0], sys.stdlib_module_names)
                 elif isinstance(node, ast.Import):
                     for alias in node.names:

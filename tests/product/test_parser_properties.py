@@ -7,10 +7,7 @@ from pathlib import Path
 import tempfile
 import unittest
 
-try:
-    from hypothesis import given, seed, settings, strategies as st
-except ImportError:
-    raise unittest.SkipTest("Hypothesis is required for generated parser tests")
+from hypothesis import given, seed, settings, strategies as st
 import actioncontract
 from actioncontract import decode, InputLimitError, MAX_INPUT_BYTES
 from actioncontract.acceptance import accept

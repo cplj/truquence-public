@@ -38,6 +38,6 @@ Start `truquence-mcp` over stdio. Call `truquence_accept` with `contract_json`, 
 
 Read `status` and `gateBlocked`. FAIL and UNKNOWN block acceptance; PASS concerns supplied records only. No command authorizes a retry or proves an external action happened.
 
-Evidence levels: passive capture describes hook collection, hook assertions are `self_reported`, and supplied workflow exports are `imported`. Neither is independent observation.
+Evidence levels: passive capture describes hook collection, hook assertions are `self_reported`, and supplied workflow exports are `imported`. None is independent observation.
 
 [Acceptance](docs/quickstart.md) · [Schemas](docs/contracts.md)

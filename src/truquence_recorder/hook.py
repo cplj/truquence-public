@@ -30,7 +30,7 @@ def main():
         result = handle(hook_input(sys.stdin.buffer.read(MAX_INPUT + 1)))
     except (ValueError, OSError, TypeError, KeyError, RecursionError) as exc:
         # Never echo untrusted input or use exit 2 (a blocking hook verdict).
-        print('SignWarden Recorder could not record this event (' + type(exc).__name__ + ').', file=sys.stderr)
+        print('Truquence Recorder could not record this event (' + type(exc).__name__ + ').', file=sys.stderr)
         return 1
     print(canonical(result).decode())
     return 0

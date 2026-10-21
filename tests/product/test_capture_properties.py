@@ -2,7 +2,7 @@
 import json
 import unittest
 from hypothesis import given, seed, settings, strategies as st
-from signwarden_recorder.core import canonical, parse
+from truquence_recorder.core import canonical, parse
 from truquence.mcp_server import truquence_accept
 
 scalar = st.none() | st.booleans() | st.integers(min_value=-2**63, max_value=2**63) | st.text(max_size=30)

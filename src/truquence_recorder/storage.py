@@ -15,7 +15,7 @@ MAX_LEDGER = 128 * 1024 * 1024
 
 
 def root():
-    return Path.home() / '.local' / 'state' / 'signwarden-recorder'
+    return Path.home() / '.local' / 'state' / 'truquence-recorder'
 
 
 def private_dir(path):

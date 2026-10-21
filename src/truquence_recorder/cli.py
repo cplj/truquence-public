@@ -11,7 +11,7 @@ def main():
         return hook_main()
     import argparse
     from .core import canonical
-    parser = argparse.ArgumentParser(prog='swr', description='Local tool-call recorder. No data is uploaded.')
+    parser = argparse.ArgumentParser(prog='truquence-recorder', description='Local tool-call recorder. No data is uploaded.')
     sub = parser.add_subparsers(dest='command', required=True)
     for name in ('install', 'uninstall', 'verify', 'hook'):
         sub.add_parser(name)
@@ -27,6 +27,6 @@ def main():
                              'head': rows[-1]['hash'] if rows else GENESIS,
                              'completeness': 'UNKNOWN', 'authenticity': 'UNKNOWN'}).decode())
     except (ValueError, OSError) as exc:
-        print('swr: ' + str(exc), file=sys.stderr)
+        print(parser.prog + ': ' + str(exc), file=sys.stderr)
         return 1
     return 0

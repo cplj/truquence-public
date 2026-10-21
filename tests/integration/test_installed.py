@@ -28,7 +28,7 @@ class InstalledCommands(unittest.TestCase):
         with tempfile.TemporaryDirectory(prefix='tq-installed-') as folder:
             folder = str(Path(folder).resolve())
             env = dict(os.environ, HOME=folder, CLAUDE_CONFIG_DIR=folder + '/settings')
-            for name in ('truquence', 'truquence-mcp', 'truquence-recorder', 'swr', 'signwarden-recorder'):
+            for name in ('truquence', 'truquence-mcp', 'truquence-recorder'):
                 result = subprocess.run([command(name), '--help'], cwd=folder, env=env,
                                         capture_output=True, timeout=15)
                 self.assertEqual(result.returncode, 0, result.stderr)
@@ -51,12 +51,12 @@ class InstalledCommands(unittest.TestCase):
             self.assertEqual(first['integrity'], 'SELF_CONSISTENT')
             self.assertEqual(first['authenticity'], 'UNKNOWN')
             self.assertEqual(first['completeness'], 'UNKNOWN')
-            ledger = Path(folder) / '.local/state/signwarden-recorder/actions.jsonl'
+            ledger = Path(folder) / '.local/state/truquence-recorder/actions.jsonl'
             rows = [json.loads(line) for line in ledger.read_text().splitlines()]
             self.assertEqual({r['evidence_level'] for r in rows}, {'self_reported'})
             # Replay retained bytes under a different isolated home, without the producer.
             with tempfile.TemporaryDirectory(prefix='tq-replay-') as replay:
-                destination = Path(replay) / '.local/state/signwarden-recorder/actions.jsonl'
+                destination = Path(replay) / '.local/state/truquence-recorder/actions.jsonl'
                 destination.parent.mkdir(parents=True, mode=0o700)
                 shutil.copyfile(ledger, destination)
                 env['HOME'] = str(Path(replay).resolve())

@@ -4,7 +4,7 @@
 
 Truquence Recorder records supplied local hook events in a redacted JSONL ledger and verifies its SHA-256 chain.
 
-The distribution is `truquence`. The Recorder module, legacy command aliases, state directory and schema identifier retain their existing names for compatibility.
+The distribution is `truquence`, the module is `truquence_recorder`, and the command is `truquence-recorder`. It uses a separate state directory. The receipt schema identifier remains compatible.
 
 ## Install and use
 
@@ -12,24 +12,24 @@ Requires Python 3.10 or later, a POSIX system and a C compiler at `/usr/bin/cc` 
 
 ```sh
 python3 -m pip install truquence
-swr --help
-swr install
-swr verify
-swr uninstall
+truquence-recorder --help
+truquence-recorder install
+truquence-recorder verify
+truquence-recorder uninstall
 ```
 
-`swr install` adds command hooks to your user settings. It retains the exact original settings bytes and a restore journal. `swr uninstall` restores the original settings when unchanged, or removes only hooks it can identify safely after later edits. Ambiguous changes cause an error. Recordings and backups remain local after uninstall.
+`truquence-recorder install` adds command hooks to your user settings. It retains the exact original settings bytes and a restore journal. `truquence-recorder uninstall` restores the original settings when unchanged, or removes only hooks it can identify safely after later edits. Ambiguous changes cause an error. Recordings and backups remain local after uninstall.
 
-The settings file defaults to `~/.claude/settings.json`; an absolute `CLAUDE_CONFIG_DIR` changes its directory. Recordings, installation journals and native builds use `~/.local/state/signwarden-recorder/`. Backups can contain sensitive settings; protect them with the same care as the originals. The native transport uses a private local Unix socket directory. The package does not upload recordings.
+The settings file defaults to `~/.claude/settings.json`; an absolute `CLAUDE_CONFIG_DIR` changes its directory. Recordings, installation journals and native builds use `~/.local/state/truquence-recorder/`. Backups can contain sensitive settings; protect them with the same care as the originals. The native transport uses a private local Unix socket directory. The package does not upload recordings.
 
-`truquence-recorder`, `swr` and `signwarden-recorder` expose `install`, `uninstall`, `hook` and `verify`. The module entrypoint is `python3 -m signwarden_recorder`.
+`truquence-recorder` exposes `install`, `uninstall`, `hook` and `verify`. The module entrypoint is `python3 -m truquence_recorder`.
 
 ## Minimal synthetic input and output
 
 This command records one synthetic event in your local ledger:
 
 ```sh
-printf '%s\n' '{"hook_event_name":"PreToolUse","session_id":"example-session","cwd":"/example","tool_name":"Bash","tool_use_id":"example-call","tool_input":{"command":"echo hello"}}' | swr hook
+printf '%s\n' '{"hook_event_name":"PreToolUse","session_id":"example-session","cwd":"/example","tool_name":"Bash","tool_use_id":"example-call","tool_input":{"command":"echo hello"}}' | truquence-recorder hook
 ```
 
 A successful hook prints `{}` and returns exit status 0. Invalid input or a recording failure returns exit status 1 with a diagnostic that does not echo the input. Capture does not issue a permission decision.
@@ -65,3 +65,5 @@ python3 -B -m unittest discover -s tests/recorder -v
 Tests need tomli on Python 3.10; runtime uses only the standard library. They retain synthetic fixtures in a new temporary directory and print its location. They do not change your real hook settings.
 
 Licensed under Apache-2.0; see [LICENSE](LICENSE) and [NOTICE](NOTICE).
+
+When migrating from the standalone recorder, uninstall its hooks in its original environment before installing these hooks. This distribution does not install its module or command aliases and does not modify its ledger. See [transition notes](../TRANSITION.md).

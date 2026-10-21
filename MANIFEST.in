@@ -4,3 +4,4 @@ recursive-include docs *.md *.html *.css
 recursive-include _pending_workflows *.yml
 recursive-include recorder *.md
 include MODULES.md TRANSITION.md CITATION.cff
+include README.*.md

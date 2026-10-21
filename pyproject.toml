@@ -25,9 +25,7 @@ mcp = ["mcp>=1.30,<2"]
 [project.scripts]
 truquence = "truquence.entry:main"
 truquence-mcp = "truquence.mcp_server:main"
-truquence-recorder = "signwarden_recorder.cli:main"
-swr = "signwarden_recorder.cli:main"
-signwarden-recorder = "signwarden_recorder.cli:main"
+truquence-recorder = "truquence_recorder.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -36,4 +34,4 @@ where = ["src"]
 truquence = ["web/*.html", "web/*.js", "web/*.css", "samples/*.csv", "SCHEMA.json", "EXPECTED.json"]
 actioncontract = ["schema/*.json", "contracts/*.json", "samples/*.json"]
 
-signwarden_recorder = ["client.c"]
+truquence_recorder = ["client.c"]

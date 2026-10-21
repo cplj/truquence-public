@@ -2,9 +2,9 @@
 
 ## 0.3.0 (candidate)
 
-- Include the public capture-only Recorder in the installed distribution, with truquence-recorder and legacy aliases.
+- Include the public capture-only Recorder in the installed distribution, with the truquence-recorder command and a dedicated module/state namespace.
 - Add an optional MCP SDK extra and truquence-mcp workflow-verification entry point.
-- Merge package keywords, project links and the workflow description from 0.2.1 metadata.
+- Add package keywords, project links and an offline workflow description.
 - Mark hook assertions as self_reported; keep authenticity and completeness UNKNOWN.
 
 ## 0.2.0
