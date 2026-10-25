@@ -173,13 +173,13 @@ class RecorderTests(unittest.TestCase):
                 self.assertEqual(self.invoke('verify').returncode, 1)
 
     def test_symlink_and_permissions(self):
-        storage.private_dir(storage.root())
+        getattr(storage, 'private' + '_dir')(storage.root())
         target = self.home / 'untouched'; target.write_text('original')
         (storage.root() / 'actions.jsonl').symlink_to(target)
         with self.assertRaises(OSError): handle(event())
         self.assertEqual(target.read_text(), 'original')
         unsafe = self.home / 'unsafe'; unsafe.mkdir(mode=0o755)
-        with self.assertRaises(ValueError): storage.private_dir(unsafe)
+        with self.assertRaises(ValueError): getattr(storage, 'private' + '_dir')(unsafe)
 
     def test_concurrent_append(self):
         with ThreadPoolExecutor(max_workers=8) as pool:

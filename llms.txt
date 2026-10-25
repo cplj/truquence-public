@@ -20,7 +20,7 @@ Workflow examples: docs/workflows.md#n8n; docs/workflows.md#make-scenario-log-ad
 Workflow use: compare exported n8n executions or Make scenario logs with independently defined expectations, offline. Do not derive expectations from the execution being accepted.
 Make scope: identity, status and operation count only; not outputs or side effects.
 Recorder entry: recorder/README.md. It records supplied tool-call envelopes; chain integrity does not prove completeness or external effects.
-Translations: README.zh-CN.md, README.zh-TW.md, README.ja.md, README.ko.md, README.es.md, README.pt-BR.md, README.de.md, README.fr.md. These editions cover acceptance; the new integration guide is in English.
+Translations: README.zh-Hant.md, README.ja.md, README.ko.md, README.es.md, README.pt-BR.md, README.de.md, README.fr.md. These editions cover acceptance; the new integration guide is in English.
 Project home: https://cplj.github.io/truquence-public/
 Package: https://pypi.org/project/truquence/
 
