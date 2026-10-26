@@ -20,7 +20,7 @@ Documentation = "https://cplj.github.io/truquence-public/"
 Issues = "https://github.com/cplj/truquence-public/issues"
 
 [project.optional-dependencies]
-mcp = ["mcp>=1.30,<2"]
+mcp = ["mcp>=1.30,<3"]
 
 [project.scripts]
 truquence = "truquence.entry:main"
