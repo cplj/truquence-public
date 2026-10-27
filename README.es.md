@@ -2,6 +2,8 @@
 
 # Truquence
 
+> **Modo de mantenimiento.** Este proyecto no se desarrolla activamente. Es posible que no se respondan los issues ni los pull requests.
+
 Tu ejecución de n8n aparece en verde. ¿El resultado fue correcto?
 
 *Texto provisional, pendiente de confirmación.*

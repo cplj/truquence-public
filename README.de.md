@@ -2,6 +2,8 @@
 
 # Truquence
 
+> **Wartungsmodus.** Dieses Projekt wird derzeit nicht aktiv weiterentwickelt. Issues und Pull Requests werden möglicherweise nicht beantwortet.
+
 Dein n8n-Lauf wird grün angezeigt. War die Ausgabe richtig?
 
 *Vorläufige Formulierung; Bestätigung steht aus.*

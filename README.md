@@ -2,6 +2,8 @@
 
 # Truquence
 
+> **Maintenance mode.** This project is not actively developed. Issues and pull requests may not receive a response.
+
 Check supplied workflow runs against explicit expectations, capture local hook events, and verify a receipt ledger offline.
 
 ## Install

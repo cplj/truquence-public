@@ -2,6 +2,8 @@
 
 # Truquence
 
+> **Modo de manutenção.** Este projeto não está em desenvolvimento ativo. Issues e pull requests podem não receber resposta.
+
 Sua execução do n8n aparece em verde. A saída estava correta?
 
 *Texto provisório, aguardando confirmação.*
